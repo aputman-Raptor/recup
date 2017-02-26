@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abara <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: aputman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/12 10:37:38 by abara             #+#    #+#             */
-/*   Updated: 2017/02/02 17:42:44 by aputman          ###   ########.fr       */
+/*   Created: 2017/02/26 21:09:04 by aputman           #+#    #+#             */
+/*   Updated: 2017/02/26 21:12:11 by aputman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ t_v			reflection(t_ray ray, t_winfo *w, int *nb, int depth)
 {
 	t_ray	ref;
 	t_v		n;
-	t_v		tmp;
 	double	ret;
 
 	if (depth <= 0)
 		return (ray.color);
 	ref.a = ray.current;
 	n = w->obj[ray.id].c;
-	tmp = get_v(ray.a, ray.current);
-	ref.dir = add_v(tmp, mult_v(mult_v(n, 2), dot(invert_v(n), tmp)));
+	ref.dir = add_v(ray.current, mult_v(mult_v(n, 2), dot(invert_v(n),
+					ray.current)));
 	ref.dir = normalize(ref.dir);
 	ref.id = -1;
 	ref.t = -1;
